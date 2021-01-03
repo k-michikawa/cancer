@@ -1,0 +1,64 @@
+syntax = "proto3";
+package cancer;
+
+service OrderService {
+    rpc PostOrder (PostOrderRequest) returns (PostOrderResponse);
+    rpc ListOrderBySellerId (ListOrderBySellerIdRequest) returns (ListOrderBySellerIdResponse);
+    rpc ListOrderByOrdererId (ListOrderByOrdererIdRequest) returns (ListOrderByOrdererIdResponse);
+    rpc FindOrder (FindOrderRequest) returns (FindOrderResponse);
+    rpc DeleteOrder (DeleteOrderRequest) returns (DeleteOrderResponse);
+}
+
+// Order
+message Order {
+    string id          = 1;
+    string productId   = 2;
+    string ordererId   = 3;
+    string sellerId    = 4;
+    int64  price       = 5;
+    string productName = 6;
+    string ordererName = 7;
+    string sellerName  = 8;
+    int64  createdAt   = 9;
+}
+
+// Request Messages
+message PostOrderRequest {
+    string productId = 1;
+    string ordererId = 2;
+}
+
+message ListOrderBySellerIdRequest {
+    string sellerId = 1;
+}
+
+message ListOrderByOrdererIdRequest {
+    string ordererId = 1;
+}
+
+message FindOrderRequest {
+    string id = 1;
+}
+
+message DeleteOrderRequest {
+    string id = 1;
+}
+
+// Response Messages
+message PostOrderResponse {
+    Order order = 1;
+}
+
+message ListOrderBySellerIdResponse {
+    repeated Order orders = 1;
+}
+
+message ListOrderByOrdererIdResponse {
+    repeated Order orders = 1;
+}
+
+message FindOrderResponse {
+    Order order = 1;
+}
+
+message DeleteOrderResponse {}
