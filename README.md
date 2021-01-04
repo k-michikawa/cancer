@@ -26,7 +26,7 @@ $ grpcurl -plaintext \
 migration ファイルの生成
 
 ```sh
-$ `bundle exec rake "gen_migrate_file[/* filename */]"`
+$ bundle exec rake "gen_migrate_file[/* filename */]"
 ```
 
 protodep のインストール
