@@ -1,0 +1,22 @@
+proto_outdir = "./proto"
+
+[[dependencies]]
+  target = "github.com/k-michikawa/leo/order"
+  revision = "fce9a648e637bb1d74d0a58e345c6d8f322c0ed3"
+  branch = "main"
+  path = ""
+  protocol = ""
+
+[[dependencies]]
+  target = "github.com/k-michikawa/leo/user"
+  revision = "fce9a648e637bb1d74d0a58e345c6d8f322c0ed3"
+  branch = "main"
+  path = ""
+  protocol = ""
+
+[[dependencies]]
+  target = "github.com/k-michikawa/leo/product"
+  revision = "fce9a648e637bb1d74d0a58e345c6d8f322c0ed3"
+  branch = "main"
+  path = ""
+  protocol = ""

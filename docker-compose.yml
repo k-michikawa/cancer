@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  cancer-db:
+    image: postgres:13
+    container_name: cancer-db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: cancer-db
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+    # 実行したSQLを標準出力に吐きたい場合
+    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
+  grpc:
+    tty: true
+    depends_on:
+      - cancer-db
+    container_name: cancer
+    build:
+      context: .
+      target: "development"
+    ports:
+      - "9030:9030"
+    environment:
+      DATABASE_HOST: cancer-db
+      DATABASE_PORT: 5432
+      DATABASE_USER: cancer
+      DATABASE_PASSWORD: cancer
+      DATABASE_NAME: cancer-db
+      LISTEN_PORT: 9030
+      ARIES_URL: aries
+      TAURUS_URL: taurus
+    volumes:
+      - type: bind
+        source: .
+        target: /cancer
+
+volumes:
+  db_data:

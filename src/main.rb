@@ -1,61 +1,31 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-lib_dir = File.join(__dir__, 'lib')
-$LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
+lib = File.join(__dir__, 'lib')
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'grpc'
-require 'proto/order_services_pb'
+require 'active_record'
+require 'rpc_server'
+require_relative 'interfaces/order_service'
+require_relative 'infrastructures/product_grpc'
+require_relative 'infrastructures/user_grpc'
 
-class OrderService < Cancer::OrderService::Service
-  def post_order(_req, _unused_call)
-    order = Cancer::Order.new(id: '0', productId: '0', ordererId: '0', sellerId: '0', price: 0, productName: 'hoge', ordererName: 'hoge', sellerName: 'hoge', createdAt: 0)
-    Cancer::PostOrderResponse.new(order: order)
-  end
+ActiveRecord::Base.establish_connection(
+  adapter: 'postgresql',
+  host: ENV.fetch('DATABASE_HOST'),
+  username: ENV.fetch('DATABASE_USER'),
+  password: ENV.fetch('DATABASE_PASSWORD'),
+  database: ENV.fetch('DATABASE_NAME'),
+  port: ENV.fetch('DATABASE_PORT'),
+  pool: 10
+)
 
-  def list_order_by_seller_id(_req, _unused_call)
-    Cancer::ListOrderBySellerIdResponse.new(orders: [])
-  end
-
-  def list_order_by_orderer_id(_req, _unused_call)
-    Cancer::ListOrderByOrdererIdResponse.new(orders: [])
-  end
-
-  def find_order(_req, _unused_call)
-    order = Cancer::Order.new(
-      id: '0',
-      productId: '0',
-      ordererId: '0',
-      sellerId: '0',
-      price: 0,
-      productName: 'hoge',
-      ordererName: 'hoge',
-      sellerName: 'hoge',
-      createdAt: 0
-    )
-    Cancer::FindOrderResponse.new(order: order)
-  end
-
-  def delete_order(_req, _unused_call)
-    order = Cancer::Order.new(
-      id: '0',
-      productId: '0',
-      ordererId: '0',
-      sellerId: '0',
-      price: 0,
-      productName: 'hoge',
-      ordererName: 'hoge',
-      sellerName: 'hoge',
-      createdAt: 0
-    )
-    Cancer::FindOrderResponse.new(order: order)
-  end
-end
-
-def main
-  server = GRPC::RpcServer.new
-  server.add_http2_port('0.0.0.0:9030', :this_port_is_insecure)
-  server.handle(OrderService)
-  server.run_till_terminated_or_interrupted(%w[SIGHUP SIGINT SIGQUIT])
-end
-
-main
+host = "0.0.0.0:#{ENV.fetch('LISTEN_PORT')}"
+server = RpcServer.new(host: host)
+server.handle(
+  OrderService.new(
+    product_grpc: ProductGrpc.new(hostname: ENV.fetch('ARIES_URL')),
+    user_grpc: UserGrpc.new(hostname: ENV.fetch('TAURUS_URL'))
+  )
+)
+server.run

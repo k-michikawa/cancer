@@ -1,0 +1,15 @@
+Metrics/MethodLength:
+  Max: 25
+  Exclude:
+    - "db/migrate/*.rb"
+
+Metrics/AbcSize:
+  Max: 20
+  # interfaceはobjectの詰め替えとかが起こるため必然的にスコアが高くなってしまうのでexclude
+  Exclude:
+    - "src/interfaces/*.rb"
+
+Layout/LineLength:
+  Max: 125
+Style/RescueStandardError:
+  EnforcedStyle: implicit

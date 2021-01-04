@@ -5,60 +5,58 @@ require 'google/protobuf'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("proto/order.proto", :syntax => :proto3) do
-    add_message "cancer.Order" do
+    add_message "leo.Order" do
       optional :id, :string, 1
       optional :productId, :string, 2
       optional :ordererId, :string, 3
       optional :sellerId, :string, 4
       optional :price, :int64, 5
       optional :productName, :string, 6
-      optional :ordererName, :string, 7
-      optional :sellerName, :string, 8
       optional :createdAt, :int64, 9
     end
-    add_message "cancer.PostOrderRequest" do
+    add_message "leo.PostOrderRequest" do
       optional :productId, :string, 1
       optional :ordererId, :string, 2
     end
-    add_message "cancer.ListOrderBySellerIdRequest" do
+    add_message "leo.ListOrderByProductIdRequest" do
       optional :sellerId, :string, 1
     end
-    add_message "cancer.ListOrderByOrdererIdRequest" do
+    add_message "leo.ListOrderByOrdererIdRequest" do
       optional :ordererId, :string, 1
     end
-    add_message "cancer.FindOrderRequest" do
+    add_message "leo.FindOrderRequest" do
       optional :id, :string, 1
     end
-    add_message "cancer.DeleteOrderRequest" do
+    add_message "leo.DeleteOrderRequest" do
       optional :id, :string, 1
     end
-    add_message "cancer.PostOrderResponse" do
-      optional :order, :message, 1, "cancer.Order"
+    add_message "leo.PostOrderResponse" do
+      optional :order, :message, 1, "leo.Order"
     end
-    add_message "cancer.ListOrderBySellerIdResponse" do
-      repeated :orders, :message, 1, "cancer.Order"
+    add_message "leo.ListOrderByProductIdResponse" do
+      repeated :orders, :message, 1, "leo.Order"
     end
-    add_message "cancer.ListOrderByOrdererIdResponse" do
-      repeated :orders, :message, 1, "cancer.Order"
+    add_message "leo.ListOrderByOrdererIdResponse" do
+      repeated :orders, :message, 1, "leo.Order"
     end
-    add_message "cancer.FindOrderResponse" do
-      optional :order, :message, 1, "cancer.Order"
+    add_message "leo.FindOrderResponse" do
+      optional :order, :message, 1, "leo.Order"
     end
-    add_message "cancer.DeleteOrderResponse" do
+    add_message "leo.DeleteOrderResponse" do
     end
   end
 end
 
-module Cancer
-  Order = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.Order").msgclass
-  PostOrderRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.PostOrderRequest").msgclass
-  ListOrderBySellerIdRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.ListOrderBySellerIdRequest").msgclass
-  ListOrderByOrdererIdRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.ListOrderByOrdererIdRequest").msgclass
-  FindOrderRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.FindOrderRequest").msgclass
-  DeleteOrderRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.DeleteOrderRequest").msgclass
-  PostOrderResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.PostOrderResponse").msgclass
-  ListOrderBySellerIdResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.ListOrderBySellerIdResponse").msgclass
-  ListOrderByOrdererIdResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.ListOrderByOrdererIdResponse").msgclass
-  FindOrderResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.FindOrderResponse").msgclass
-  DeleteOrderResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("cancer.DeleteOrderResponse").msgclass
+module Leo
+  Order = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.Order").msgclass
+  PostOrderRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.PostOrderRequest").msgclass
+  ListOrderByProductIdRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.ListOrderByProductIdRequest").msgclass
+  ListOrderByOrdererIdRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.ListOrderByOrdererIdRequest").msgclass
+  FindOrderRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.FindOrderRequest").msgclass
+  DeleteOrderRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.DeleteOrderRequest").msgclass
+  PostOrderResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.PostOrderResponse").msgclass
+  ListOrderByProductIdResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.ListOrderByProductIdResponse").msgclass
+  ListOrderByOrdererIdResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.ListOrderByOrdererIdResponse").msgclass
+  FindOrderResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.FindOrderResponse").msgclass
+  DeleteOrderResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("leo.DeleteOrderResponse").msgclass
 end

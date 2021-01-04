@@ -1,0 +1,13 @@
+proto_outdir = "./proto"
+
+[[dependencies]]
+  target = "github.com/k-michikawa/leo/order"
+  branch = "main"
+
+[[dependencies]]
+  target = "github.com/k-michikawa/leo/user"
+  branch = "main"
+
+[[dependencies]]
+  target = "github.com/k-michikawa/leo/product"
+  branch = "main"

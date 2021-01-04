@@ -1,0 +1,19 @@
+development:
+  adapter: postgresql
+  # encoding: utf8mb4
+  host: <%= ENV['DATABASE_HOST'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
+  pool: 10
+
+# migrateするためにスーパーユーザーの定義
+migrate:
+  adapter: postgresql
+  # encoding: utf8mb4
+  host: "cancer-db"
+  username: postgres
+  password: password
+  database: "cancer-db"
+  port: 5432
