@@ -36,7 +36,7 @@ services:
       TAURUS_URL: "taurus-mock:9010"
     volumes:
       - .:/cancer
-    # command: /bin/sh -c "chmod +x ./src/main.rb && bundle exec ./src/main.rb"
+    command: /bin/sh -c "chmod +x ./src/main.rb && bundle exec ./src/main.rb"
   aries-mock:
     container_name: aries-mock
     build:
