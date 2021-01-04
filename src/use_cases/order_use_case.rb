@@ -3,8 +3,8 @@
 require_relative '../repositories/order_repository'
 
 class OrderUseCase
-  def self.store_order(product_id:, orderer_id:, product:)
-    OrderRepository.store_order(product_id: product_id, orderer_id: orderer_id, product: product)
+  def self.store(product_id:, orderer_id:, product:)
+    OrderRepository.store(product_id: product_id, orderer_id: orderer_id, product: product)
   end
 
   def self.list_by_product_id(product_id:)

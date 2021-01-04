@@ -15,7 +15,7 @@ class OrderService < Leo::OrderService::Service
 
   def post_order(req, _)
     product = @product_grpc.find_product product_id: req.productId
-    order_with_detail = OrderUseCase.store_order product_id: req.productId, orderer_id: req.ordererId, product: product
+    order_with_detail = OrderUseCase.store product_id: req.productId, orderer_id: req.ordererId, product: product
 
     Leo::PostOrderResponse.new(order: Leo::Order.new(
       id: order_with_detail[:order].id,

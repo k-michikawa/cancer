@@ -4,7 +4,7 @@ require_relative '../models/order_model'
 require_relative '../models/order_detail_model'
 
 class OrderRepository
-  def self.store_order(product_id:, orderer_id:, product:)
+  def self.store(product_id:, orderer_id:, product:)
     order = Order.create(product_id: product_id, orderer_id: orderer_id, seller_id: product.sellerId)
     detail = OrderDetail.create(order_id: order.id, price: product.price, product_name: product.name)
     { order: order, detail: detail }
