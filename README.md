@@ -23,6 +23,12 @@ $ grpcurl -plaintext \
 
 ### tools
 
+migration ファイルの生成
+
+```sh
+$ `bundle exec rake "gen_migrate_file[/* filename */]"`
+```
+
 protodep のインストール
 
 ```sh

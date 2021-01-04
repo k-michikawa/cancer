@@ -9,7 +9,3 @@
 
 # rspec failure tracking
 .rspec_status
-
-# proto
-/proto/
-/lib/proto/
