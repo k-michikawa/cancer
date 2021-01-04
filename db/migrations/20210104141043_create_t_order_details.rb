@@ -4,7 +4,6 @@ class CreateTOrderDetails < ActiveRecord::Migration[6.1]
       t.uuid    :order_id,     null: false, index: true
       t.integer :price,        null: false
       t.text    :product_name, null: false
-      t.boolean :is_deleted,   null: false, default: false
     end
     add_foreign_key :t_order_details, :t_orders, column: :order_id
 

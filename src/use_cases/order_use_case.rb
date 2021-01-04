@@ -11,6 +11,10 @@ class OrderUseCase
     OrderRepository.list_by_product_id(product_id: product_id)
   end
 
+  def self.list_by_seller_id(seller_id:)
+    OrderRepository.list_by_seller_id(seller_id: seller_id)
+  end
+
   def self.list_by_orderer_id(orderer_id:)
     OrderRepository.list_by_orderer_id(orderer_id: orderer_id)
   end

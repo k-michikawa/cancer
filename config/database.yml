@@ -12,7 +12,7 @@ development:
 migrate:
   adapter: postgresql
   # encoding: utf8mb4
-  host: "cancer-db"
+  host: localhost
   username: postgres
   password: password
   database: "cancer-db"

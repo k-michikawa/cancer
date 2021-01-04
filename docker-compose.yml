@@ -14,13 +14,14 @@ services:
       POSTGRES_USER: postgres
     # 実行したSQLを標準出力に吐きたい場合
     command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
-  grpc:
+  cancer:
     tty: true
     depends_on:
       - cancer-db
     container_name: cancer
     build:
       context: .
+      dockerfile: ./docker/Dockerfile
       target: "development"
     ports:
       - "9030:9030"
@@ -31,12 +32,33 @@ services:
       DATABASE_PASSWORD: cancer
       DATABASE_NAME: cancer-db
       LISTEN_PORT: 9030
-      ARIES_URL: aries
-      TAURUS_URL: taurus
+      ARIES_URL: "aries-mock:9000"
+      TAURUS_URL: "taurus-mock:9010"
     volumes:
-      - type: bind
-        source: .
-        target: /cancer
+      - .:/cancer
+    # command: /bin/sh -c "chmod +x ./src/main.rb && bundle exec ./src/main.rb"
+  aries-mock:
+    container_name: aries-mock
+    build:
+      context: .
+      dockerfile: ./docker/aries-mock.Dockerfile
+      target: "development"
+    environment:
+      LISTEN_PORT: 9000
+    volumes:
+      - .:/aries
+    command: /bin/sh -c "chmod +x ./mock/aries_mock.rb && bundle exec ./mock/aries_mock.rb"
+  taurus-mock:
+    container_name: taurus-mock
+    build:
+      context: .
+      dockerfile: ./docker/taurus-mock.Dockerfile
+      target: "development"
+    environment:
+      LISTEN_PORT: 9010
+    volumes:
+      - .:/taurus
+    command: /bin/sh -c "chmod +x ./mock/taurus_mock.rb && bundle exec ./mock/taurus_mock.rb"
 
 volumes:
   db_data:

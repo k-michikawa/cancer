@@ -12,6 +12,6 @@ class UserGrpc
   def find_user(user_id:)
     request = Leo::FindUserRequest.new(id: user_id)
     # 例外が発生する可能性があるが、呼び出し側でrescueしたいので特に気にしない
-    @stub.find_user(request).message
+    @stub.find_user(request).user
   end
 end

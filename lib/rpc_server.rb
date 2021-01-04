@@ -14,7 +14,7 @@ class RpcServer
       connect_md_proc: nil,
       server_args: {},
       # Experimental API
-      interceptors: [GRPC::ServerInterceptor.new]
+      interceptors: [CancerInterceptor.new]
     )
     server.add_http2_port(host, :this_port_is_insecure)
     @server = server
@@ -28,5 +28,32 @@ class RpcServer
   def run
     @logger.info('Start cancer!')
     @server.run_till_terminated_or_interrupted(%w[SIGHUP SIGINT SIGQUIT])
+  end
+end
+
+class CancerInterceptor < GRPC::ServerInterceptor
+  def initialize
+    super()
+    @logger = Logger.new($stdout)
+  end
+
+  def request_response(request:, call:, method:)
+    @logger.info "{ \"method\": \"#{method}\", \"request\": \"#{request}\", \"call\": \"#{call}\" }"
+    yield
+  end
+
+  def client_streamer(call:, method:)
+    @logger.info "{ \"method\": \"#{method}\", \"call\": \"#{call}\" }"
+    yield
+  end
+
+  def server_streamer(request:, call:, method:)
+    @logger.info "{ \"method\": \"#{method}\", \"request\": \"#{request}\", \"call\": \"#{call}\" }"
+    yield
+  end
+
+  def bidi_streamer(requests:, call:, method:)
+    @logger.info "{ \"method\": \"#{method}\", \"request\": \"#{requests}\", \"call\": \"#{call}\" }"
+    yield
   end
 end
