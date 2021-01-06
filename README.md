@@ -58,8 +58,8 @@ $ ssh-add ~/.ssh/id_rsa
 3. `$ protodep up`
 4. `$ bundle install`
 5. `$ grpc_tools_ruby_protoc -I . --ruby_out=lib --grpc_out=lib proto/*`
-6. `$ docker-compose run -d --service-ports cancer-db`
+6. `$ docker-compose up -d cancer-db`
 7. `$ bundle exec db:create`
 8. `$ bundle exec db:migrate`
-9. `$ docker stop /* 6で立ち上げた container name */`
+9. `$ docker stop`
 10. `$ docker-compose up`
